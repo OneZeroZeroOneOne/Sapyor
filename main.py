@@ -9,12 +9,17 @@ import settings
 from aiohttp import web
 
 
+
 if __name__=="__main__":
     loop = asyncio.get_event_loop()
     bot = Bot(token=settings.token, loop=loop, parse_mode=types.ParseMode.HTML)
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
     dp.middleware.setup(LoggingMiddleware())
-    app = web.Application()
-    loop.run_until_complete(bot.set_webhook(settings.BOT_WEBHOOK_URL))
-    configure_app(dispatcher = dp, app = app, path = settings.BOT_WEBHOOK_PATH)
+    handler = Handlers(dp, bot)
+    handler.register()
+    #app = web.Application()
+    #loop.run_until_complete(bot.set_webhook(settings.BOT_WEBHOOK_URL))
+    #configure_app(dispatcher = dp, app = app, path = settings.BOT_WEBHOOK_PATH)
+    #web.run_app(app, host= "0.0.0.0", port=443)
+    executor.start_polling(dp, loop=loop, skip_updates=True)
