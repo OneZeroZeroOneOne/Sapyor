@@ -46,13 +46,3 @@ def mapa():
     for i in l:
         print(i)
     return l
-
-
-
-
-
-
-
-
-if __name__=="__main__":
-    mapa()
