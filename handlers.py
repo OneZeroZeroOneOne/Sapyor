@@ -29,7 +29,8 @@ class Handlers:
             await query.bot.send_message(query.message.chat.id, "*Ты проиграл*", parse_mode = 'Markdown')
         else:
             logger.info(self.channels[query.message.chat.id].opened)
-            self.channels[query.message.chat.id].add_open_but([callback_data['y'], callback_data['x']])
+            logger.info(int(callback_data['y']))
+            self.channels[query.message.chat.id].add_open_but([int(callback_data['y']), int(callback_data['x'])])
             logger.info(self.channels[query.message.chat.id].opened)
             await query.bot.send_message(query.message.chat.id, "Верно",
                     reply_markup=map_paint.map_paint(self.channels[query.message.chat.id].pole, self.channels[query.message.chat.id].opened))

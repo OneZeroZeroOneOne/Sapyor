@@ -13,8 +13,8 @@ def map_paint(l , opened):
         listbut.clear()
         for j in range(0,len(l[i])):
             if [i,j] in opened:
-                listbut.append(InlineKeyboardButton(l[i][j], callback_data=val_cb.new(value = l[i][j], x=j, y=i, action = "open_but")))
+                listbut.append(InlineKeyboardButton(l[i][j], callback_data=val_cb.new(value = l[i][j], x=int(j), y=int(i), action = "open_but")))
             else:
-                listbut.append(InlineKeyboardButton(" ", callback_data=val_cb.new(value = l[i][j], x=j, y=i, action = "open_but")))
+                listbut.append(InlineKeyboardButton(" ", callback_data=val_cb.new(value = l[i][j], x=int(j), y=int(i), action = "open_but")))
         markup.row(*listbut)
     return markup

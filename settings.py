@@ -3,6 +3,8 @@
 # ssh -R forevka:443:localhost:443 serveo.net#
 ##############################################
 
+visota_shirina=[9, 7]
+
 token = "918649269:AAHGSIxfREdd7PeZVGDk1-LqM00YGAegMno"
 
 SERVER_HOST = 'forevka.serveo.net'  # Domain name or IP addres which your bot is located.

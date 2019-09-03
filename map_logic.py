@@ -1,12 +1,13 @@
 
 from loguru import logger
 import random
+import settings
 
 
 
 def mapa():
-    x = 7
-    y = 9
+    x = settings.visota_shirina[1]
+    y = settings.visota_shirina[0]
     bombs = 12
     l = [[0 for i in range(0,x+1)] for i in range(0,y+1)]
     for i in l:
