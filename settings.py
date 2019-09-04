@@ -20,3 +20,4 @@ BOT_WEBHOOK_PATH = '/webhook'  # Part of URL
 BOT_WEBHOOK_URL = f"https://{SERVER_HOST}:{SERVER_PORT}{BOT_WEBHOOK_PATH}"
 
 start_text="*Привет, я - старый, добрый сапер. Чтобы начать играть нажмите кнопку НАЧАТЬ*"
+game_over="Бабах, кишки мясо и мозги размазанные по асфальту"

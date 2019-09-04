@@ -19,20 +19,24 @@ class Handlers:
         self.dp.register_callback_query_handler(self.open_but, map_paint.val_cb.filter(action='open_but'))
 
     async def new_game(self, query: types.CallbackQuery, callback_data: dict):
-        await query.bot.send_message(query.message.chat.id, "Игра началась",
+        self.channels[query.message.chat.id].opened.clear()
+        self.channels[query.message.chat.id].set_pole(map_logic.mapa())
+        await query.bot.edit_message_reply_markup(query.message.chat.id, message_id=query.message.message_id,
                     reply_markup=map_paint.map_paint(self.channels[query.message.chat.id].pole, self.channels[query.message.chat.id].opened))
 
 
 
     async def open_but(self, query: types.CallbackQuery, callback_data: dict):
         if callback_data['value']=="*":
-            await query.bot.send_message(query.message.chat.id, "*Ты проиграл*", parse_mode = 'Markdown')
+            await query.bot.edit_message_reply_markup(query.message.chat.id, message_id=query.message.message_id, reply_markup=None)
+            await query.bot.send_message(query.message.chat.id, text=settings.game_over,
+                                        parse_mode = 'Markdown', reply_markup=start.start())
         else:
             logger.info(self.channels[query.message.chat.id].opened)
             logger.info(int(callback_data['y']))
             self.channels[query.message.chat.id].add_open_but([int(callback_data['y']), int(callback_data['x'])])
             logger.info(self.channels[query.message.chat.id].opened)
-            await query.bot.send_message(query.message.chat.id, "Верно",
+            await query.bot.edit_message_reply_markup(query.message.chat.id, message_id=query.message.message_id,
                     reply_markup=map_paint.map_paint(self.channels[query.message.chat.id].pole, self.channels[query.message.chat.id].opened))
 
 
@@ -42,6 +46,5 @@ class Handlers:
         if not message.chat.id in self.channels.keys():
             self.channels[message.chat.id] = Channel(message.chat.id)
             logger.info(self.channels)
-        self.channels[message.chat.id].set_pole(map_logic.mapa())
         await self.bot.send_message(message.chat.id, text=settings.start_text,
                                     parse_mode = 'Markdown', reply_markup=start.start())
