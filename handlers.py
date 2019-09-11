@@ -16,7 +16,7 @@ class Handlers:
     def register(self):
         self.dp.register_message_handler(self.start, commands='start')
         self.dp.register_callback_query_handler(self.new_game, start.start_cb.filter(new_game='new_game'))
-        self.dp.register_callback_query_handler(self.open_but, map_paint.val_cb.filter(action='open_but'))
+        self.dp.register_callback_query_handler(self.open_but_rabbit, map_paint.val_cb.filter(action='open_but'))
 
     async def new_game(self, query: types.CallbackQuery, callback_data: dict):
         self.channels[query.message.chat.id].opened.clear()
@@ -26,7 +26,10 @@ class Handlers:
 
 
 
-    async def open_but(self, query: types.CallbackQuery, callback_data: dict):
+    async def open_but_rabbit(self, query: types.CallbackQuery, callback_data: dict):
+        
+
+    async def open_but(self, query, callback_data):
         if callback_data['value']=="*":
             await query.bot.edit_message_reply_markup(query.message.chat.id, message_id=query.message.message_id, reply_markup=None)
             await query.bot.send_message(query.message.chat.id, text=settings.game_over,
@@ -38,8 +41,6 @@ class Handlers:
             logger.info(self.channels[query.message.chat.id].opened)
             await query.bot.edit_message_reply_markup(query.message.chat.id, message_id=query.message.message_id,
                     reply_markup=map_paint.map_paint(self.channels[query.message.chat.id].pole, self.channels[query.message.chat.id].opened))
-
-
 
     async def start(self, message: types.Message):
         logger.info(message.chat.id)
