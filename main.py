@@ -7,12 +7,15 @@ from aiogram.dispatcher.webhook import get_new_configured_app, configure_app
 from handlers import Handlers
 import settings
 from aiohttp import web
+from MyBot import MyBot
 
 
 
 if __name__=="__main__":
     loop = asyncio.get_event_loop()
-    bot = Bot(token=settings.token, loop=loop, parse_mode=types.ParseMode.HTML)
+    logger.info("!!!!!!!!!!!!!!!")
+    bot = MyBot(token=settings.token, loop=loop, parse_mode=types.ParseMode.HTML)
+    logger.info("!!!!!!!!!!!!!!!")
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
     dp.middleware.setup(LoggingMiddleware())
