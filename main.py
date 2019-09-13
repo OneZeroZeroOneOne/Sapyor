@@ -16,7 +16,7 @@ from MyBot import create_bot
 if __name__=="__main__":
     loop = asyncio.get_event_loop()
     logger.info("!!!!!!!!!!!!!!!")
-    bot = bot = create_bot(config.rmq_channel, config.rmq_connection_string, token=config.bot_token)
+    bot = create_bot(config.rmq_channel, config.rmq_connection_string, token=config.bot_token)
     logger.info("!!!!!!!!!!!!!!!")
     storage = MemoryStorage()
     dp = Dispatcher(bot, storage=storage)
